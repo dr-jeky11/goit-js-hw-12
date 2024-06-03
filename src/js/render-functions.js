@@ -1,55 +1,26 @@
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
-
-const gallery = document.querySelector(".gallery");
-const loader = document.querySelector(".loader");
-let lightbox;
-
-export function renderGallery(images) {
-    gallery.innerHTML = images.map(image => createImageCard(image)).join("");
-    if (lightbox) {
-        lightbox.refresh();
-    } else {
-        lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250, captionsData: "alt" });
-    }
-}
-
-function createImageCard(image) {
-    return `
-    <div class="photo-card">
-      <a class="link" href="${image.largeImageURL}">
-        <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}">
-        <div class="info">
-        <li><h3 class="info-title">Likes</h3><p class="info-text">${image.likes}</p></li>
-        <li><h3 class="info-title">Views</h3><p class="info-text">${image.views}</p></li>
-        <li><h3 class="info-title">Comments</h3><p class="info-text">${image.comments}</p></li>
-        <li><h3 class="info-title">Downloads</h3><p class="info-text">${image.downloads}</p></li>
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+export function imagesRender(arr) {
+  return arr
+    .map(
+      arr =>
+        `<li class="gallery-list"><div class="gallery"><a href="${arr.largeImageURL}"><img src="${arr.webformatURL}" alt="${arr.tags}" width="360px" height="100px"></a>
+      <ul class="img-cont-list">
+      <li class="img-cont-item">Likes<p class="img-cont-descr">${arr.likes}</p></li>
+      <li class="img-cont-item">Views<p class="img-cont-descr">${arr.views}</p></li>
+      <li class="img-cont-item">Comments<p class="img-cont-descr">${arr.comments}</p></li>
+      <li class="img-cont-item">Downloads<p class="img-cont-descr">${arr.downloads}</p></li>
+      </ul>
       </div>
-      </a>
-    </div>
-  `;
+      </li>`
+    )
+    .join('');
 }
-
-export function showLoader() {
-    loader.style.display = "block";
-}
-
-export function hideLoader() {
-    loader.style.display = "none";
-}
-
-export function showError(message) {
-    iziToast.error({
-        icon: "",
-        backgroundColor: "#ef4040",
-        position: "topRight",
-        message: "Sorry, there are no images matching your search query. Please, try again!",
-        messageColor: "white",
-    });
-}
-
-export function clearGallery() {
-    gallery.innerHTML = "";
+export function imgBoxLight() {
+  let gallery = new SimpleLightbox('.gallery a', {
+    navText: ['&#5176;', '&#5171;'],
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+  gallery.refresh();
 }
