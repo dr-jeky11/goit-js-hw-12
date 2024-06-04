@@ -4,20 +4,24 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import { fetchImages, currentQuery } from "./pixabay-api.js";
 
+const itemsPerPage = 15;
+
 let lightbox;
 const gallery = document.querySelector(".gallery");
 const loadMore = document.querySelector(".js-load-more");
+const loader = document.querySelector(".loader");
+
 
 export function renderGallery(images) {
-
     gallery.innerHTML = images.map(image => createImageCard(image)).join("");
     if (lightbox) {
         lightbox.refresh();
     } else {
         lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250, captionsData: "alt" });
     }
-    if (images.length > 0 && images.length < 14) {
+    if (images.length < itemsPerPage) {
         loadMore.style.display = "none";
+        hideLoader();
     } else {
         loadMore.style.display = "block";
     }
@@ -45,11 +49,13 @@ export async function onLoadMore() {
     showLoader();
 
     try {
-
         const images = await fetchImages(currentQuery, page);
 
-        if (!images || images.length === 0) {
-            hideLoader();
+        if (images.length > 0) {
+            updateGallery(images);
+        }
+
+        if (images.length < itemsPerPage) {
             iziToast.error({
                 icon: "",
                 backgroundColor: "blue",
@@ -58,17 +64,13 @@ export async function onLoadMore() {
                 messageColor: "white",
             });
             loadMore.style.display = "none";
-            return;
         }
 
         updateGallery(images);
 
-        const lastCard = gallery.lastElementChild;
-        const cardHeight = lastCard.getBoundingClientRect().height;
-
         window.scrollBy({
             left: 0,
-            top: window.innerHeight,
+            top: document.body.scrollHeight,
             behavior: "smooth"
         });
 
@@ -100,17 +102,15 @@ function createImageCard(image) {
 }
 
 export function showLoader() {
-    const loader = document.querySelector(".loader");
     loader.style.display = "block";
 }
 
 export function hideLoader() {
-    const loader = document.querySelector(".loader");
     loader.style.display = "none";
 }
 
 export function clearGallery() {
     page = 1;
-    const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
 }
+

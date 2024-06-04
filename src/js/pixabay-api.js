@@ -38,12 +38,20 @@ export async function fetchImages(query, page = 1) {
                 message: "Sorry, there are no images matching your search query. Please, try again!",
                 messageColor: "white",
             });
-
+            return [];
         } else {
             return data.hits;
         }
 
     } catch (error) {
         console.error(error.message);
+        iziToast.error({
+            icon: "",
+            backgroundColor: "#ef4040",
+            position: "topRight",
+            message: "An error occurred while fetching images. Please try again later.",
+            messageColor: "white",
+        });
+        return [];
     }
 }
