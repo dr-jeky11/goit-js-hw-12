@@ -54,7 +54,7 @@ export async function onLoadMore() {
                 icon: "",
                 backgroundColor: "blue",
                 position: "topRight",
-                message: "&#11198; We're sorry, but you've reached the end of search results.",
+                message: "We're sorry, but you've reached the end of search results.",
                 messageColor: "white",
             });
             loadMore.style.display = "none";
