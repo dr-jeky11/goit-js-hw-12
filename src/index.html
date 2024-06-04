@@ -8,19 +8,21 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <form action="submit" class="find-form">
+    <form class="form">
       <input
+        class="input"
         type="text"
-        name="find-text"
-        id="find-text"
-        class="find-data"
-        placeholder="Search images..."
+        name="query"
+        placeholder="Search images"
+        autocomplete="off"
       />
-      <button type="submit" class="find-btn">Start</button>
+      <button class="button" type="submit">Search</button>
     </form>
-    <ul class="galleriesBox"></ul>
-    <div id="load"></div>
-    <button type="button" class="btn hidden">Load mode</button>
+    <div class="gallery"></div>
+    <div class="button-container">
+      <div class="loader"></div>
+      <button class="js-load-more button">Load more</button>
+    </div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
