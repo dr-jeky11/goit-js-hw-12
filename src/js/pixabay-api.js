@@ -1,14 +1,13 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import axios from "axios";
-const loadMore = document.querySelector(".js-load-more");
 
 export function showError() {
     iziToast.error({
         icon: "",
         backgroundColor: "#ef4040",
         position: "topRight",
-        message: "Oh, shit! Type something",
+        message: "You forgot to type something",
         messageColor: "white",
     });
 }
@@ -19,7 +18,7 @@ export async function fetchImages(query, page = 1) {
     currentQuery = query;
     const BASE_URL = "https://pixabay.com/api/";
     const params = new URLSearchParams({
-        key: "44041025-2e091a4b621ea033778029d2c",
+        key: "44031120-3f1a866ec56678536c033b40b",
         q: query,
         image_type: "photo",
         orientation: "horizontal",
@@ -36,7 +35,7 @@ export async function fetchImages(query, page = 1) {
                 icon: "",
                 backgroundColor: "#ef4040",
                 position: "topRight",
-                message: "&#11198; Sorry, there are no images matching your search query. Please, try again!",
+                message: "Sorry, there are no images matching your search query. Please, try again!",
                 messageColor: "white",
             });
 

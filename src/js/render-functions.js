@@ -68,7 +68,7 @@ export async function onLoadMore() {
 
         window.scrollBy({
             left: 0,
-            top: cardHeight * 2,
+            top: window.innerHeight,
             behavior: "smooth"
         });
 

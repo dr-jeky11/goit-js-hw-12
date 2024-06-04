@@ -22,9 +22,10 @@ searchForm.addEventListener("submit", async (event) => {
     input.value = "";
 
     try {
-
+        
         const images = await fetchImages(query);
         renderGallery(images);
+
     } catch (error) {
         console.log(error.message);
     } finally {
