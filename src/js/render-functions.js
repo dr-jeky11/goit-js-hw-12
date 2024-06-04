@@ -53,7 +53,11 @@ export async function onLoadMore() {
                 top: document.body.scrollHeight,
                 behavior: "smooth"
             })
+        if (lightbox) {
+        lightbox.destroy();
         }
+        lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250, captionsData: "alt" });
+    }
 
         if (images.length < itemsPerPage) {
             iziToast.error({
