@@ -7,24 +7,26 @@
     <title>JEKY11-JS-HW-12</title>
     
     <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-b11e2a50.js">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-4b066c51.css">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-78507006.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-ee72e1a4.js">
+    <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-1cd1f9d9.css">
+    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-0f578db5.css">
   </head>
   <body>
-    <form action="submit" class="find-form">
+    <form class="form">
       <input
+        class="input"
         type="text"
-        name="find-text"
-        id="find-text"
-        class="find-data"
-        placeholder="Search images..."
+        name="query"
+        placeholder="Search images"
+        autocomplete="off"
       />
-      <button type="submit" class="find-btn">Start</button>
+      <button class="button" type="submit">Search</button>
     </form>
-    <ul class="galleriesBox"></ul>
-    <div id="load"></div>
-    <button type="button" class="btn hidden">Load mode</button>
+    <div class="gallery"></div>
+    <div class="button-container">
+      <div class="loader"></div>
+      <button class="js-load-more button">Load more</button>
+    </div>
     
   </body>
 </html>
