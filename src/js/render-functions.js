@@ -11,36 +11,31 @@ const gallery = document.querySelector(".gallery");
 const loadMore = document.querySelector(".js-load-more");
 const loader = document.querySelector(".loader");
 
+let page = 1;
 
 export function renderGallery(images) {
     gallery.innerHTML = images.map(image => createImageCard(image)).join("");
     if (lightbox) {
-        lightbox.refresh();
-    } else {
-        lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250, captionsData: "alt" });
+        lightbox.destroy();
     }
+    lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250, captionsData: "alt" });
+
     if (images.length < itemsPerPage) {
         loadMore.style.display = "none";
         hideLoader();
     } else {
         loadMore.style.display = "block";
     }
-
 }
 
 export function updateGallery(images) {
     gallery.insertAdjacentHTML("beforeend", images.map(image => createImageCard(image)).join(""));
-    if (lightbox) {
-        lightbox.refresh();
-    }
+    lightbox.refresh();
 }
 
 loadMore.addEventListener("click", onLoadMore);
 
-let page = 1;
-
 export async function onLoadMore() {
-
     if (!currentQuery) {
         return;
     }
@@ -53,6 +48,11 @@ export async function onLoadMore() {
 
         if (images.length > 0) {
             updateGallery(images);
+            window.scrollBy({
+                left: 0,
+                top: document.body.scrollHeight,
+                behavior: "smooth"
+            })
         }
 
         if (images.length < itemsPerPage) {
@@ -66,25 +66,14 @@ export async function onLoadMore() {
             loadMore.style.display = "none";
         }
 
-        updateGallery(images);
-
-        window.scrollBy({
-            left: 0,
-            top: document.body.scrollHeight,
-            behavior: "smooth"
-        });
-
-
     } catch (error) {
         console.error(error.message);
-
     } finally {
         hideLoader();
     }
 }
 
 function createImageCard(image) {
-
     return `
     <div class="photo-card">
       <a class="link" href="${image.largeImageURL}">
@@ -98,7 +87,6 @@ function createImageCard(image) {
       </a>
     </div>
   `;
-
 }
 
 export function showLoader() {
@@ -113,4 +101,3 @@ export function clearGallery() {
     page = 1;
     gallery.innerHTML = "";
 }
-
